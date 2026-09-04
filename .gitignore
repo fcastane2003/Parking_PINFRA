@@ -1,27 +1,25 @@
 ﻿# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
-.eggs/
-*.sqlite3
-
-# Envs
-.venv/
-.env
 venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-# Editor config
+# Environments
+.env
+.env.*
+
+# Editors
 .vscode/
 .idea/
 
-# OS
-.DS_Store
-Thumbs.db
+# Test / build
+.pytest_cache/
+.coverage
 
-# Logs
-*.log
-
-# Database
-database/
+# Distribution / packaging
+build/
+dist/
+.eggs/
+*.egg-info/
