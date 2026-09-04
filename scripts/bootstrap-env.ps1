@@ -1,5 +1,5 @@
-# Bootstrap .env into PowerShell process scope and optionally run create_admin.py
-# Usage: from the repository root run: pwsh ./scripts/bootstrap-env.ps1
+Write-Host "🚀 Iniciando configuración del entorno..."
+
 $envFile = Join-Path $PSScriptRoot '..\.env'
 if (-Not (Test-Path $envFile)) {
   Write-Error ".env not found at $envFile"
@@ -15,12 +15,24 @@ Get-Content $envFile | ForEach-Object {
     [System.Environment]::SetEnvironmentVariable($name, $value, 'Process')
   }
 }
-Write-Host "Environment variables loaded into process scope."
+Write-Host "✅ Environment variables loaded into process scope."
 
-# Optional: run create_admin.py non-interactive if password present
-if ([System.Environment]::GetEnvironmentVariable('INITIAL_ADMIN_PASSWORD','Process')) {
-  Write-Host "Running create_admin.py (non-interactive)..."
-  python .\create_admin.py
+# Ejecutar create_admin.py desde la raíz del repo si existe
+$repoRoot = Join-Path $PSScriptRoot '..'
+$createAdminPath = Join-Path $repoRoot 'create_admin.py'
+
+if (Test-Path $createAdminPath) {
+  Write-Host "👤 Ejecutando create_admin.py desde la raíz del repo..."
+  Push-Location $repoRoot
+  try {
+    python .\create_admin.py
+  } catch {
+    Write-Host "⚠️ Error al ejecutar create_admin.py: $_"
+  } finally {
+    Pop-Location
+  }
 } else {
-  Write-Host "INITIAL_ADMIN_PASSWORD not set — skipping create_admin.py"
+  Write-Host "⚠️ No se encontró create_admin.py en la raíz del repo; ejecuta manualmente: python .\\create_admin.py"
 }
+
+Write-Host "🎉 Configuración completada!"
