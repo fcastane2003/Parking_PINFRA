@@ -3,6 +3,7 @@
 Responsabilidad:
 - Endpoints CRUD para empleados.
 """
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -14,8 +15,17 @@ router = APIRouter(prefix="/api/employees", tags=["employees"])
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_employee_endpoint(payload: EmployeeCreate, db: Session = Depends(get_db)):
-    emp = create_employee(db, badge=payload.badge, full_name=payload.full_name, department=payload.department, position=payload.position, is_director=payload.is_director)
+def create_employee_endpoint(
+    payload: EmployeeCreate, db: Session = Depends(get_db)
+):
+    emp = create_employee(
+        db,
+        badge=payload.badge,
+        full_name=payload.full_name,
+        department=payload.department,
+        position=payload.position,
+        is_director=payload.is_director,
+    )
     return {"mensaje": "Empleado creado", "id": emp.id}
 
 
@@ -23,8 +33,19 @@ def create_employee_endpoint(payload: EmployeeCreate, db: Session = Depends(get_
 def list_employees(db: Session = Depends(get_db)):
     from sqlalchemy import select
     from app.db.models import Employee
+
     rows = db.execute(select(Employee)).scalars().all()
-    return {"employees": [{"id": r.id, "badge": r.badge, "full_name": r.full_name, "department": r.department} for r in rows]}
+    return {
+        "employees": [
+            {
+                "id": r.id,
+                "badge": r.badge,
+                "full_name": r.full_name,
+                "department": r.department,
+            }
+            for r in rows
+        ]
+    }
 
 
 @router.get("/{employee_id}")

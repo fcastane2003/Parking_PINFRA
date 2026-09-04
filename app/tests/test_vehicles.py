@@ -10,12 +10,20 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 from app.db.models import Base
-from app.db.crud import create_employee, create_vehicle, count_vehicles_for_employee
+from app.db.crud import (
+    create_employee,
+    create_vehicle,
+    count_vehicles_for_employee,
+)
 
 
 @pytest.fixture()
 def in_memory_db():
-    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False}, future=True)
+    engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        future=True,
+    )
     Base.metadata.create_all(bind=engine)
     SessionLocal = sessionmaker(bind=engine, future=True)
     db = SessionLocal()

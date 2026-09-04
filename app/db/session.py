@@ -7,7 +7,7 @@ Responsabilidad:
 - Soportar SQLite (check_same_thread) y Postgres a través de DATABASE_URL.
 """
 
-from typing import Generator, Optional
+from typing import Generator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session

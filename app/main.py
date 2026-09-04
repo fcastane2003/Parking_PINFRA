@@ -11,7 +11,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 
-from app.api import vehicles, boletas  # import routers package-style
+# Import routers
+from app.api import vehicles, boletas, auth, employees
 
 app = FastAPI(
     title="Parking PINFRA API",
@@ -34,6 +35,8 @@ async def health():
     return {"status": "ok"}
 
 
-# incluir routers
+# Incluir routers
 app.include_router(vehicles.router)
 app.include_router(boletas.router)
+app.include_router(auth.router)
+app.include_router(employees.router)
