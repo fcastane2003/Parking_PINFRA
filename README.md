@@ -1,25 +1,23 @@
-name=README.md
-Repositorio: Parking_PINFRA
+# Parking_PINFRA
 
-Responsabilidad:
-- Contiene el código del backend del Sistema de Gestión de Estacionamiento y Reconocimiento de Placas (Parking PINFRA).
-- Scaffold inicial: FastAPI, utilidades, y configuración mínima.
-- Sprint 0: inicializar estructura del proyecto, tests básicos y CI.
+This repository contains the backend for Parking_PINFRA.
 
-Instrucciones rápidas:
-1. Abrir este repo en GitHub Codespaces (recomendado).
-2. Crear un entorno virtual y activar (Windows PowerShell):
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   pip install -r requirements.txt
-3. Ejecutar servidor de desarrollo:
+## What I added
+- app/config.py: includes JWT settings (ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_MINUTES, ALGORITHM).
+- scripts/bootstrap-env.ps1: PowerShell helper to load .env into the process environment and optionally run create_admin.py non-interactively.
+- scripts/test-auth.ps1: PowerShell helper to test /api/auth/login and /api/auth/me.
+
+## Usage
+1. Load environment and (optionally) create the initial admin:
+   pwsh ./scripts/bootstrap-env.ps1
+
+2. Start the server (if not running):
    uvicorn app.main:app --reload --port 8000
 
-Reglas de entrega:
-- Cada archivo entregado debe ser completo y con la ruta exacta.
-- No se incluirán secretos en el repo.
-- El código pasa por linters/formateadores antes de entregar (black/isort/flake8).
+3. Test authentication using the test script (replace credentials as needed):
+   pwsh ./scripts/test-auth.ps1 -Username admin -Password change_me_now
 
-Notas:
-- Para desarrollo local sin admin usamos SQLite por defecto (DATABASE_URL en .env).
-- Para desarrollo completo (Postgres + Redis + Codespaces) sigue las instrucciones en docs/ cuando estén disponibles.
+## Security
+- Do NOT commit your .env file to a public repository.
+- Keep SECRET_KEY and passwords secret.
+
