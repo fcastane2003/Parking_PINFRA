@@ -60,3 +60,5 @@ The `tests/test\_auth.py` test is skipped unless `INITIAL\_ADMIN\_USERNAME` and 
 
 
 
+
+<!-- CI trigger -->
