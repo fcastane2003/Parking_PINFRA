@@ -37,7 +37,9 @@ def create_boleta(payload: BoletaCreate, db: Session = Depends(get_db)):
             created_by=None,
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail="No fue posible crear la boleta.") from e
+        raise HTTPException(
+            status_code=500, detail="No fue posible crear la boleta."
+        ) from e
 
     return {
         "mensaje": "Boleta creada correctamente.",

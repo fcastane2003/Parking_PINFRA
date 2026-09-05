@@ -22,7 +22,9 @@ def _normalizar_password(password: str) -> bytes:
         raise ValueError("La contraseña no puede estar vacía.")
     password_bytes = password.encode("utf-8")
     if len(password_bytes) > 72:
-        raise ValueError("La contraseña supera el límite de 72 bytes de bcrypt.")
+        raise ValueError(
+            "La contraseña supera el límite de 72 bytes de bcrypt."
+        )
     return password_bytes
 
 
@@ -43,14 +45,18 @@ def verificar_password(plain_password: str, hashed_password: str) -> bool:
         return False
 
 
-def crear_token_acceso(data: dict[str, Any], expires_delta: Optional[timedelta] = None) -> str:
+def crear_token_acceso(
+    data: dict[str, Any], expires_delta: Optional[timedelta] = None
+) -> str:
     if not isinstance(data, dict):
         raise TypeError("data debe ser dict.")
     to_encode = data.copy()
     if expires_delta is not None:
         expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now(timezone.utc) + timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
+        expire = datetime.now(timezone.utc) + timedelta(
+            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+        )
     to_encode.update({"exp": expire, "sub": data.get("sub")})
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm="HS256")
     return encoded_jwt

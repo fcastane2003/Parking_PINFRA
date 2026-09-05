@@ -17,11 +17,15 @@ router = APIRouter(prefix="/api/vehicles", tags=["vehicles"])
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_vehicle_endpoint(payload: VehicleCreate, db: Session = Depends(get_db)):
+def create_vehicle_endpoint(
+    payload: VehicleCreate, db: Session = Depends(get_db)
+):
     # verificar empleado existe
     emp = crud.get_employee(db, payload.owner_id)
     if emp is None:
-        raise HTTPException(status_code=404, detail="Colaborador no encontrado.")
+        raise HTTPException(
+            status_code=404, detail="Colaborador no encontrado."
+        )
 
     try:
         veh = crud.create_vehicle(
@@ -38,9 +42,13 @@ def create_vehicle_endpoint(payload: VehicleCreate, db: Session = Depends(get_db
     except Exception as e:
         # si IntegrityError de unicidad
         if "UNIQUE" in str(e).upper():
-            raise HTTPException(status_code=409, detail="La placa ya está registrada.") from e
+            raise HTTPException(
+                status_code=409, detail="La placa ya está registrada."
+            ) from e
 
-        raise HTTPException(status_code=500, detail="No fue posible crear el vehículo.") from e
+        raise HTTPException(
+            status_code=500, detail="No fue posible crear el vehículo."
+        ) from e
 
     return {
         "mensaje": "Vehículo creado correctamente.",
@@ -58,14 +66,11 @@ def get_vehicle_by_plate(plate: str, db: Session = Depends(get_db)):
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e)) from e
 
-    stmt = db.execute(
-        select := None  # placeholder to avoid flake8 unused import in this context
-    )
-
-    # Consulta simple:
+    # Consulta para obtener vehículo con datos del empleado
     veh = db.execute(
         """
-        SELECT v.id, v.plate, v.brand, v.model, v.color, v.owner_id, e.full_name, e.badge
+        SELECT v.id, v.plate, v.brand, v.model, v.color,
+               v.owner_id, e.full_name, e.badge
         FROM vehicles v
         LEFT JOIN employees e ON v.owner_id = e.id
         WHERE v.plate_normalized = :p

@@ -1,8 +1,9 @@
-﻿"""app/dependencies.py
+﻿"""
+app/dependencies.py
 
 Responsabilidad:
-- Dependencias para FastAPI que validan token Bearer, recuperan usuario desde BD
-  y aplican control por roles.
+- Dependencias para FastAPI que validan token Bearer,
+  recuperan usuario desde BD y aplican control por roles.
 """
 
 from typing import Callable
@@ -79,12 +80,18 @@ def require_roles(roles_permitidos: list[str]) -> Callable:
         raise ValueError("roles_permitidos debe ser una lista no vacía.")
     roles_norm = {str(r).strip().lower() for r in roles_permitidos}
 
-    async def checker(current_user = Depends(get_current_user)):
+    async def checker(current_user=Depends(get_current_user)):
         rol_actual = current_user.get("rol") or current_user.get("role")
         if rol_actual is None:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Usuario sin rol válido.")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Usuario sin rol válido.",
+            )
         if str(rol_actual).strip().lower() not in roles_norm:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="No tiene permisos suficientes.")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="No tiene permisos suficientes.",
+            )
         return current_user
 
     return checker

@@ -18,8 +18,12 @@ def init_auth_db(db: Session) -> None:
     Crea el usuario administrador inicial si no existe.
     Debe llamarse una vez en el arranque (dentro de una sesión).
     """
-    initial_username = (settings.__dict__.get("INITIAL_ADMIN_USERNAME") or "").strip()
-    initial_email = (settings.__dict__.get("INITIAL_ADMIN_EMAIL") or "").strip()
+    initial_username = (
+        settings.__dict__.get("INITIAL_ADMIN_USERNAME") or ""
+    ).strip()
+    initial_email = (
+        settings.__dict__.get("INITIAL_ADMIN_EMAIL") or ""
+    ).strip()
     initial_password = settings.__dict__.get("INITIAL_ADMIN_PASSWORD") or ""
 
     if not initial_username or not initial_email or not initial_password:
@@ -44,7 +48,14 @@ def init_auth_db(db: Session) -> None:
     db.commit()
 
 
-def crear_usuario(db: Session, username: str, email: str, password: str, nombre_completo: str, rol: str = "operador") -> Optional[int]:
+def crear_usuario(
+    db: Session,
+    username: str,
+    email: str,
+    password: str,
+    nombre_completo: str,
+    rol: str = "operador",
+) -> Optional[int]:
     username = username.strip()
     email = email.strip().lower()
     if not username or not email or not password:
@@ -71,7 +82,9 @@ def crear_usuario(db: Session, username: str, email: str, password: str, nombre_
         return None
 
 
-def obtener_usuario_por_username(db: Session, username: str) -> Optional[dict[str, Any]]:
+def obtener_usuario_por_username(
+    db: Session, username: str
+) -> Optional[dict[str, Any]]:
     if not username or not isinstance(username, str):
         return None
     stmt = select(User).where(User.username == username.strip())
@@ -89,7 +102,9 @@ def obtener_usuario_por_username(db: Session, username: str) -> Optional[dict[st
     }
 
 
-def obtener_usuario_por_id(db: Session, user_id: int) -> Optional[dict[str, Any]]:
+def obtener_usuario_por_id(
+    db: Session, user_id: int
+) -> Optional[dict[str, Any]]:
     if not isinstance(user_id, int) or user_id <= 0:
         return None
     user = db.get(User, user_id)
@@ -111,15 +126,21 @@ def listar_usuarios(db: Session) -> list[dict[str, Any]]:
     rows = db.execute(stmt).scalars().all()
     result = []
     for r in rows:
-        result.append({
-            "id": r.id,
-            "username": r.username,
-            "email": r.email,
-            "full_name": r.full_name,
-            "role": r.role,
-            "active": r.active,
-            "created_at": r.created_at.isoformat() if getattr(r, "created_at", None) else None,
-        })
+        result.append(
+            {
+                "id": r.id,
+                "username": r.username,
+                "email": r.email,
+                "full_name": r.full_name,
+                "role": r.role,
+                "active": r.active,
+                "created_at": (
+                    r.created_at.isoformat()
+                    if getattr(r, "created_at", None)
+                    else None
+                ),
+            }
+        )
     return result
 
 

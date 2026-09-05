@@ -3,6 +3,7 @@
 Responsabilidad:
 - Modelos Pydantic para login, registro y token.
 """
+
 from pydantic import BaseModel
 from typing import Optional
 
