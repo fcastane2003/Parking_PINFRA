@@ -34,5 +34,6 @@ jobs:
         INITIAL_ADMIN_USERNAME: ${{ secrets.INITIAL_ADMIN_USERNAME }}
         INITIAL_ADMIN_PASSWORD: ${{ secrets.INITIAL_ADMIN_PASSWORD }}
         DATABASE_URL: sqlite:///./test.db
+        PYTHONPATH: .
       run: |
         pytest -v
