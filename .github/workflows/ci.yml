@@ -27,9 +27,19 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
+    - name: Run create_admin.py (load .env if present)
+      env:
+        INITIAL_ADMIN_USERNAME: ${{ secrets.INITIAL_ADMIN_USERNAME }}
+        INITIAL_ADMIN_PASSWORD: ${{ secrets.INITIAL_ADMIN_PASSWORD }}
+      run: |
+        if [ -f .env ]; then
+          python -c "from pathlib import Path; from dotenv import load_dotenv; from subprocess import check_call; load_dotenv(Path('.').resolve() / '.env'); if Path('create_admin.py').exists(): check_call([import('sys').executable, 'create_admin.py'])"
+        else
+          echo ".env not found — skipping create_admin.py"
+        fi
+
     - name: Run tests
       env:
-        # Provide secrets or defaults in the repository settings if you want to run auth tests
         INITIAL_ADMIN_USERNAME: ${{ secrets.INITIAL_ADMIN_USERNAME }}
         INITIAL_ADMIN_PASSWORD: ${{ secrets.INITIAL_ADMIN_PASSWORD }}
       run: |
