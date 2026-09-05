@@ -6,8 +6,6 @@ Responsabilidad:
 - Mantener el esquema mínimo necesario para Sprint 0.
 """
 
-from datetime import datetime
-
 from sqlalchemy import (
     Column,
     Integer,
@@ -56,7 +54,9 @@ class Vehicle(Base):
     owner = relationship("Employee", back_populates="vehicles")
 
     __table_args__ = (
-        UniqueConstraint("plate_normalized", name="uq_vehicle_plate_normalized"),
+        UniqueConstraint(
+            "plate_normalized", name="uq_vehicle_plate_normalized"
+        ),
     )
 
 
