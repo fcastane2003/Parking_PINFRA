@@ -9,24 +9,15 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        python-version: [3.11]
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
-
-    - name: List directory structure
-      run: |
-        ls -la
-        ls -la app/
+        python-version: '3.11'
 
     - name: Install dependencies
       run: |
@@ -37,11 +28,6 @@ jobs:
       run: |
         echo "INITIAL_ADMIN_USERNAME=${{ secrets.INITIAL_ADMIN_USERNAME }}" >> .env
         echo "INITIAL_ADMIN_PASSWORD=${{ secrets.INITIAL_ADMIN_PASSWORD }}" >> .env
-        cat .env
-
-    - name: Run create_admin.py
-      run: |
-        python create_admin.py
 
     - name: Run tests
       run: |
