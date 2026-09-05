@@ -29,11 +29,20 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Create .env file
+      run: |
+        echo "SECRET_KEY=test-secret-key-for-ci-123456789" >> .env
+        echo "DATABASE_URL=sqlite:///./test.db" >> .env
+        echo "INITIAL_ADMIN_USERNAME=${{ secrets.INITIAL_ADMIN_USERNAME }}" >> .env
+        echo "INITIAL_ADMIN_PASSWORD=${{ secrets.INITIAL_ADMIN_PASSWORD }}" >> .env
+        echo "INITIAL_ADMIN_EMAIL=admin@example.com" >> .env
+        echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> .env
+        echo "REFRESH_TOKEN_EXPIRE_MINUTES=10080" >> .env
+        echo "ALGORITHM=HS256" >> .env
+        echo "ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000" >> .env
+
     - name: Run tests
       env:
-        INITIAL_ADMIN_USERNAME: ${{ secrets.INITIAL_ADMIN_USERNAME }}
-        INITIAL_ADMIN_PASSWORD: ${{ secrets.INITIAL_ADMIN_PASSWORD }}
-        DATABASE_URL: sqlite:///./test.db
         PYTHONPATH: .
       run: |
         pytest -v
