@@ -31,15 +31,21 @@ jobs:
 
     - name: Create .env file
       run: |
-        echo "SECRET_KEY=test-secret-key-for-ci-123456789" >> .env
-        echo "DATABASE_URL=sqlite:///./test.db" >> .env
-        echo "INITIAL_ADMIN_USERNAME=${{ secrets.INITIAL_ADMIN_USERNAME }}" >> .env
-        echo "INITIAL_ADMIN_PASSWORD=${{ secrets.INITIAL_ADMIN_PASSWORD }}" >> .env
-        echo "INITIAL_ADMIN_EMAIL=admin@example.com" >> .env
-        echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> .env
-        echo "REFRESH_TOKEN_EXPIRE_MINUTES=10080" >> .env
-        echo "ALGORITHM=HS256" >> .env
-        echo "ALLOWED_ORIGINS=[\""http://localhost:3000"\", \""http://127.0.0.1:3000"\", \""http://localhost:8000"\"]" >> .env
+        @"
+        SECRET_KEY=test-secret-key-for-ci-123456789
+        DATABASE_URL=sqlite:///./test.db
+        INITIAL_ADMIN_USERNAME=${{ secrets.INITIAL_ADMIN_USERNAME }}
+        INITIAL_ADMIN_PASSWORD=${{ secrets.INITIAL_ADMIN_PASSWORD }}
+        INITIAL_ADMIN_EMAIL=admin@example.com
+        ACCESS_TOKEN_EXPIRE_MINUTES=30
+        REFRESH_TOKEN_EXPIRE_MINUTES=10080
+        ALGORITHM=HS256
+        ALLOWED_ORIGINS=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8000"]
+        "@ | Out-File -FilePath .env -Encoding utf8
+
+    - name: Display .env content (debug)
+      run: |
+        Get-Content .env
 
     - name: Run tests
       env:
