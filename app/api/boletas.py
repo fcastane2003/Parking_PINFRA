@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/api/boletas.py
 
 Responsabilidad:

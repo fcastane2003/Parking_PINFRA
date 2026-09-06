@@ -1,4 +1,4 @@
-﻿"""app/auth/auth_db.py
+"""app/auth/auth_db.py
 
 Responsabilidad:
 - Operaciones sobre usuarios usando SQLAlchemy Session.

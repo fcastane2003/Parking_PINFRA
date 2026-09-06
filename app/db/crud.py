@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/db/crud.py
 
 Responsabilidad:

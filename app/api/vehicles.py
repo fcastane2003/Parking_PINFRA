@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/api/vehicles.py
 
 Responsabilidad:

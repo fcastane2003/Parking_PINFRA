@@ -1,4 +1,4 @@
-﻿"""app/api/auth.py
+"""app/api/auth.py
 
 Responsabilidad:
 - Endpoints para login, registro y obtener información del usuario actual.

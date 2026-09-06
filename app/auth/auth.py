@@ -1,4 +1,4 @@
-﻿"""app/auth/auth.py
+"""app/auth/auth.py
 
 Responsabilidad:
 - Hash y verificación de contraseñas (bcrypt).

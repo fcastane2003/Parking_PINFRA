@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/dependencies.py
 
 Responsabilidad:

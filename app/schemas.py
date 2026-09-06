@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/schemas.py
 
 Responsabilidad:

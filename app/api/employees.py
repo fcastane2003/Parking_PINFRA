@@ -1,4 +1,4 @@
-﻿"""app/api/employees.py
+"""app/api/employees.py
 
 Responsabilidad:
 - Endpoints CRUD para empleados.

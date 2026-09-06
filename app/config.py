@@ -1,4 +1,4 @@
-﻿"""
+"""
 Configuración de la aplicación.
 """
 

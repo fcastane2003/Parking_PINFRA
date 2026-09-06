@@ -1,4 +1,4 @@
-﻿"""app/auth/auth_models.py
+"""app/auth/auth_models.py
 
 Responsabilidad:
 - Modelos Pydantic para login, registro y token.

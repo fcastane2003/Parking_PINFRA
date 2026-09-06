@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/db/models.py
 
 Responsabilidad:

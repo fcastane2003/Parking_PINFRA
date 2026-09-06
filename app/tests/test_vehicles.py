@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/tests/test_vehicles.py
 
 Responsabilidad:

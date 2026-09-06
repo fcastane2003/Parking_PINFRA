@@ -1,4 +1,4 @@
-﻿"""
+"""
 app/services/folio.py
 
 Responsabilidad:

@@ -1,4 +1,4 @@
-﻿"""
+"""
 Utilidades para la capa de datos.
 
 Responsabilidad:

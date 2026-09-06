@@ -1,1 +1,1 @@
-﻿# Paquete auth
+# Paquete auth
