@@ -39,7 +39,7 @@ jobs:
         echo "ACCESS_TOKEN_EXPIRE_MINUTES=30" >> .env
         echo "REFRESH_TOKEN_EXPIRE_MINUTES=10080" >> .env
         echo "ALGORITHM=HS256" >> .env
-        echo "ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000" >> .env
+        echo "ALLOWED_ORIGINS=[\""http://localhost:3000"\", \""http://127.0.0.1:3000"\", \""http://localhost:8000"\"]" >> .env
 
     - name: Run tests
       env:
