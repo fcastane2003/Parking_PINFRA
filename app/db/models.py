@@ -1,9 +1,9 @@
-"""
+﻿"""
 app/db/models.py
 
 Responsabilidad:
-- Contiene las definiciones de modelo SQLAlchemy usadas por la aplicación.
-- Mantener el esquema mínimo necesario para Sprint 0.
+- Contiene las definiciones de modelo SQLAlchemy usadas por la aplicaciÃ³n.
+- Mantener el esquema mÃ­nimo necesario para Sprint 0.
 """
 
 from sqlalchemy import (
@@ -54,9 +54,7 @@ class Vehicle(Base):
     owner = relationship("Employee", back_populates="vehicles")
 
     __table_args__ = (
-        UniqueConstraint(
-            "plate_normalized", name="uq_vehicle_plate_normalized"
-        ),
+        UniqueConstraint("plate_normalized", name="uq_vehicle_plate_normalized"),
     )
 
 
@@ -107,3 +105,10 @@ class Attachment(Base):
     content_type = Column(String(128))
     path = Column(String(1024))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+
+class ParkingSpot(Base):
+    __tablename__ = "parking_spots"
+    id = Column(Integer, primary_key=True, index=True)
+    slot = Column(String, unique=True, index=True)
+    occupied = Column(Boolean, default=False)
