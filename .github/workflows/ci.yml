@@ -43,9 +43,13 @@ jobs:
         ALLOWED_ORIGINS=["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8000"]
         "@ | Out-File -FilePath .env -Encoding utf8
 
-    - name: Display .env content (debug)
+    - name: Create database tables
       run: |
-        Get-Content .env
+        python -c "from app.db.session import engine; from app.db.models import Base; Base.metadata.create_all(engine)"
+
+    - name: Run create_admin.py
+      run: |
+        python create_admin.py
 
     - name: Run tests
       env:
