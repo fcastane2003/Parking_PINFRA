@@ -16,7 +16,9 @@ if os.path.exists(env_path):
         for i, line in enumerate(lines[:6], start=1):
             if line.startswith("SECRET_KEY="):
                 val = line.split("=", 1)[1]
-                masked = (val[:4] + "..." + val[-4:]) if len(val) > 8 else ("*" * 6)
+                masked = (
+                    (val[:4] + "..." + val[-4:]) if len(val) > 8 else ("*" * 6)
+                )
                 print(f"  {i}: SECRET_KEY={masked}")
             else:
                 print(f"  {i}: {line}")

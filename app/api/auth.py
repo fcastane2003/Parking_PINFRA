@@ -74,7 +74,9 @@ def register(
         rol=payload.rol,
     )
     if not user_id:
-        raise HTTPException(status_code=400, detail="El usuario o email ya existe.")
+        raise HTTPException(
+            status_code=400, detail="El usuario o email ya existe."
+        )
     return {"mensaje": "Usuario creado correctamente.", "id": user_id}
 
 
