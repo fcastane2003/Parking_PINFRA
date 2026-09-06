@@ -2,7 +2,7 @@
 app/main.py
 
 Responsabilidad:
-- Inicializar la aplicaciÃ³n FastAPI y registrar routers.
+- Inicializar la aplicación FastAPI y registrar routers.
 - Exponer endpoint /health.
 """
 
@@ -10,9 +10,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
-
-# Import routers
 from app.api import vehicles, boletas, auth, employees
+from app.parking.routes import router as parking_router
 
 app = FastAPI(
     title="Parking PINFRA API",
@@ -40,20 +39,4 @@ app.include_router(vehicles.router)
 app.include_router(boletas.router)
 app.include_router(auth.router)
 app.include_router(employees.router)
-
-# Register parking router
-from app.parking.routes import router as parking_router
-
-app.include_router(parking_router)
-
-
-# Register parking router
-app.include_router(parking_router)
-
-
-# Register parking router
-app.include_router(parking_router)
-
-
-# Register parking router
 app.include_router(parking_router)
