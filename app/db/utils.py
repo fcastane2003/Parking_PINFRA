@@ -25,6 +25,8 @@ def normalize_plate(plate: str) -> str:
     s = re.sub(r"[^A-Z0-9]", "", s)
 
     if len(s) < 3:
-        raise ValueError("La placa no es válida después de normalizar (longitud < 3).")
+        raise ValueError(
+            "La placa no es válida después de normalizar (longitud < 3)."
+        )
 
     return s

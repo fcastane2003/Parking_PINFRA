@@ -18,8 +18,12 @@ def init_auth_db(db: Session) -> None:
     Crea el usuario administrador inicial si no existe.
     Debe llamarse una vez en el arranque (dentro de una sesión).
     """
-    initial_username = (settings.__dict__.get("INITIAL_ADMIN_USERNAME") or "").strip()
-    initial_email = (settings.__dict__.get("INITIAL_ADMIN_EMAIL") or "").strip()
+    initial_username = (
+        settings.__dict__.get("INITIAL_ADMIN_USERNAME") or ""
+    ).strip()
+    initial_email = (
+        settings.__dict__.get("INITIAL_ADMIN_EMAIL") or ""
+    ).strip()
     initial_password = settings.__dict__.get("INITIAL_ADMIN_PASSWORD") or ""
 
     if not initial_username or not initial_email or not initial_password:
@@ -98,7 +102,9 @@ def obtener_usuario_por_username(
     }
 
 
-def obtener_usuario_por_id(db: Session, user_id: int) -> Optional[dict[str, Any]]:
+def obtener_usuario_por_id(
+    db: Session, user_id: int
+) -> Optional[dict[str, Any]]:
     if not isinstance(user_id, int) or user_id <= 0:
         return None
     user = db.get(User, user_id)
@@ -129,7 +135,9 @@ def listar_usuarios(db: Session) -> list[dict[str, Any]]:
                 "role": r.role,
                 "active": r.active,
                 "created_at": (
-                    r.created_at.isoformat() if getattr(r, "created_at", None) else None
+                    r.created_at.isoformat()
+                    if getattr(r, "created_at", None)
+                    else None
                 ),
             }
         )

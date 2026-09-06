@@ -5,7 +5,8 @@ from app.main import app
 
 
 @pytest.mark.skipif(
-    not os.getenv("INITIAL_ADMIN_USERNAME") or not os.getenv("INITIAL_ADMIN_PASSWORD"),
+    not os.getenv("INITIAL_ADMIN_USERNAME")
+    or not os.getenv("INITIAL_ADMIN_PASSWORD"),
     reason="Auth env vars not set",
 )
 def test_login_and_me():
