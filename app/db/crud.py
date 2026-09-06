@@ -17,9 +17,7 @@ from app.db.models import Employee, Vehicle, Boleta, BoletaCounter
 from app.db.utils import normalize_plate
 
 
-def create_employee(
-    db: Session, badge: str, full_name: str, **kwargs
-) -> Employee:
+def create_employee(db: Session, badge: str, full_name: str, **kwargs) -> Employee:
     emp = Employee(badge=badge, full_name=full_name, **kwargs)
     db.add(emp)
     try:
@@ -78,9 +76,7 @@ def create_vehicle(
             )
 
         # verificar unicidad placa normalizada
-        stmt_plate = select(Vehicle).where(
-            Vehicle.plate_normalized == plate_norm
-        )
+        stmt_plate = select(Vehicle).where(Vehicle.plate_normalized == plate_norm)
         existing = db.execute(stmt_plate).scalars().first()
         if existing:
             raise IntegrityError(

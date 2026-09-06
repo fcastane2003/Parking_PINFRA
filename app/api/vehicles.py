@@ -17,15 +17,11 @@ router = APIRouter(prefix="/api/vehicles", tags=["vehicles"])
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_vehicle_endpoint(
-    payload: VehicleCreate, db: Session = Depends(get_db)
-):
+def create_vehicle_endpoint(payload: VehicleCreate, db: Session = Depends(get_db)):
     # verificar empleado existe
     emp = crud.get_employee(db, payload.owner_id)
     if emp is None:
-        raise HTTPException(
-            status_code=404, detail="Colaborador no encontrado."
-        )
+        raise HTTPException(status_code=404, detail="Colaborador no encontrado.")
 
     try:
         veh = crud.create_vehicle(

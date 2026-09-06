@@ -15,9 +15,7 @@ router = APIRouter(prefix="/api/employees", tags=["employees"])
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_employee_endpoint(
-    payload: EmployeeCreate, db: Session = Depends(get_db)
-):
+def create_employee_endpoint(payload: EmployeeCreate, db: Session = Depends(get_db)):
     emp = create_employee(
         db,
         badge=payload.badge,

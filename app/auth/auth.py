@@ -22,9 +22,7 @@ def _normalizar_password(password: str) -> bytes:
         raise ValueError("La contraseña no puede estar vacía.")
     password_bytes = password.encode("utf-8")
     if len(password_bytes) > 72:
-        raise ValueError(
-            "La contraseña supera el límite de 72 bytes de bcrypt."
-        )
+        raise ValueError("La contraseña supera el límite de 72 bytes de bcrypt.")
     return password_bytes
 
 
